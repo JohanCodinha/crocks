@@ -10,8 +10,9 @@ function tryCatch(fn) {
     throw new TypeError('tryCatch: Function required for first argument')
   }
 
-  return function(x) {
-    try { return Ok(fn(x)) }
+  return function() {
+    const promiseArgs = arguments
+    try { return Ok(fn.apply(null, promiseArgs)) }
     catch(e) { return Err(e) }
   }
 }
